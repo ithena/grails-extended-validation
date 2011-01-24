@@ -1,0 +1,21 @@
+
+h1. setErrors
+
+h2. Purpose
+
+
+
+h2. Examples
+
+{code:java}
+foo.setErrors(errors)
+{code}
+
+h2. Description
+
+
+
+Arguments:
+
+[* @errors@
+]

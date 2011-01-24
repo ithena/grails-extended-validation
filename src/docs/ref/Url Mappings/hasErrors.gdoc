@@ -1,0 +1,20 @@
+
+h1. hasErrors
+
+h2. Purpose
+
+
+
+h2. Examples
+
+{code:java}
+foo.hasErrors()
+{code}
+
+h2. Description
+
+
+
+Arguments:
+
+[]

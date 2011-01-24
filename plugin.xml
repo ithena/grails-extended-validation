@@ -1,0 +1,104 @@
+<plugin name='extended-validation' version='0.1' grailsVersion='1.3.5 &gt; *'>
+  <author>Ivo Houbrechts</author>
+  <authorEmail>ivo@houbrechts-it.be</authorEmail>
+  <title>Extended Validation Plugin</title>
+  <description>This plugin provides partial validation of (groups) of fields, cascaded validation and instance validators for non-domain objects.</description>
+  <documentation>http://grails.org/plugin/extended-validation</documentation>
+  <resources>
+    <resource>BuildConfig</resource>
+    <resource>Config</resource>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+  </resources>
+  <dependencies />
+  <behavior>
+    <method name='hasErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+    </method>
+    <method name='getErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+    </method>
+    <method name='setErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+      <argument type='org.springframework.validation.Errors' />
+    </method>
+    <method name='clearErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+    </method>
+    <method name='getConstraintGroups' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+    </method>
+    <method name='validate' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+    </method>
+    <method name='validate' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='validate' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='getSerializableIdentityHashCode' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+    </method>
+    <method name='getSerializableIdentityHashCode' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.SubDomain'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='hasErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+    </method>
+    <method name='getErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+    </method>
+    <method name='setErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+      <argument type='org.springframework.validation.Errors' />
+    </method>
+    <method name='clearErrors' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+    </method>
+    <method name='getConstraintGroups' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+    </method>
+    <method name='validate' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+    </method>
+    <method name='validate' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='validate' artefact='Controller' type='be.ixor.grails.extendedvalidation.test.MyDomain'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <property name='errors' type='be.ixor.grails.extendedvalidation.test.SubDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='errors' type='be.ixor.grails.extendedvalidation.test.SubDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='constraints' type='be.ixor.grails.extendedvalidation.test.SubDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='constraintGroups' type='be.ixor.grails.extendedvalidation.test.SubDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='serializableIdentityHashCode' type='be.ixor.grails.extendedvalidation.test.SubDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='errors' type='be.ixor.grails.extendedvalidation.test.MyDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='errors' type='be.ixor.grails.extendedvalidation.test.MyDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='constraints' type='be.ixor.grails.extendedvalidation.test.MyDomain' artefact='Controller'>
+      <description />
+    </property>
+    <property name='constraintGroups' type='be.ixor.grails.extendedvalidation.test.MyDomain' artefact='Controller'>
+      <description />
+    </property>
+  </behavior>
+</plugin>
