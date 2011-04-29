@@ -141,7 +141,7 @@ class ValidationHelperTest extends GroovyTestCase {
         assert !myDomain.validate()
         def errors = myDomain.errors.allErrors
         assert errors.size() == 1
-        assert (errors.first().codes as List).contains('be.ixor.grails.extendedvalidation.test.MyDomain.sortedCollection.unsorted')
+        assert (errors.first().codes as List).contains('unsorted')
     }
 
     void testExcludeInstanceConstraintInGroupValidation() {

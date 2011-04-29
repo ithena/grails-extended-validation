@@ -16,12 +16,14 @@ class MyDomain {
             sized(maxSize: 3)
             minInt(min: 3)
             subDomain(nullable: false, cascade: true)
-            sortedCollection(validator: { myDomain ->
-                return myDomain?.collection == myDomain?.collection?.clone()?.sort() ? null : 'unsorted'
+            sortedCollection(validator: { myDomain, errors ->
+                if (myDomain?.collection != myDomain?.collection?.clone()?.sort()) {
+                    errors.reject('unsorted')
+                }
             })
         }
         ranged(range: 1..3)
-        uniqueInCollection(validator: { myDomain ->
+        uniqueInCollection(validator: {MyDomain myDomain ->
             def collection = myDomain?.collection
             for (element in collection) {
                 if (collection.findAll { other -> other == element }.size() > 1) {

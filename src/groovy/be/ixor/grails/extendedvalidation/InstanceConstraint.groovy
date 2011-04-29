@@ -27,15 +27,14 @@ class InstanceConstraint {
 
     void validate(Object target, Errors errors) {
         if (!validator) return
-
-        Object[] validatorParams = new Object[numValidatorParams]
-        validatorParams[0] = target
-        if (numValidatorParams == 2) {
-            validatorParams[1] = errors
-        }
-
         validator.delegate = this
-        final Object validateResult = validator.call(validatorParams)
+
+        Object validateResult
+        if (numValidatorParams == 2) {
+            validateResult = validator.call(target, errors)
+        } else {
+            validateResult = validator.call(target)
+        }
 
         if (!validatorHandlesErrors()) {
             handleErrors(validateResult, target, errors)
