@@ -1,10 +1,13 @@
-<plugin name='extended-validation' version='1.0.2' grailsVersion='1.3.0 &gt; *'>
+<plugin name='extended-validation' version='1.0.3' grailsVersion='1.3.0 &gt; *'>
   <author>Ivo Houbrechts</author>
   <authorEmail>ivo@houbrechts-it.be</authorEmail>
   <title>Extended Validation Plugin</title>
   <description>This plugin provides partial validation of (groups) of fields, cascaded validation and instance validators for non-domain objects.</description>
   <documentation>http://grails.org/plugin/extended-validation</documentation>
-  <resources />
+  <resources>
+    <resource>BuildConfig</resource>
+    <resource>UrlMappings</resource>
+  </resources>
   <dependencies />
   <behavior />
 </plugin>
