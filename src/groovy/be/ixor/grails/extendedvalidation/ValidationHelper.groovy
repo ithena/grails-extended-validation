@@ -7,7 +7,6 @@ import org.codehaus.groovy.grails.commons.GrailsClassUtils
 import org.codehaus.groovy.grails.support.SoftThreadLocalMap
 import org.codehaus.groovy.grails.validation.ConstrainedProperty
 import org.springframework.beans.BeanUtils
-import org.springframework.validation.BeanPropertyBindingResult
 import org.springframework.validation.Errors
 import org.springframework.validation.FieldError
 import org.springframework.validation.ObjectError
@@ -76,17 +75,29 @@ class ValidationHelper {
             def key = createKey(delegate)
             errors = get(key)
             if (!errors) {
-                errors = new BeanPropertyBindingResult(delegate, delegate.getClass().getName())
+                errors = new GroupAwareBeanPropertyBindingResult(delegate, delegate.getClass().getName())
                 put key, errors
             }
             errors
+        }
+        metaClass.getAllErrorsRecursive = {->
+            def result = []
+            for (error in getErrors().allErrors) {
+                if (error.code == CascadeConstraint.MESSAGE_CODE) {
+                    def bean = delegate[error.field]
+                    result += bean.allErrorsRecursive
+                } else {
+                    result << error
+                }
+            }
+            result.flatten()
         }
         metaClass.setErrors = {Errors errors ->
             def key = createKey(delegate)
             put key, errors
         }
         metaClass.clearErrors = {->
-            delegate.setErrors(new BeanPropertyBindingResult(delegate, delegate.getClass().getName()))
+            delegate.setErrors(new GroupAwareBeanPropertyBindingResult(delegate, delegate.getClass().getName()))
         }
 
         def validationClosure = GrailsClassUtils.getStaticPropertyValue(validateableClass, 'constraints')
@@ -133,7 +144,7 @@ class ValidationHelper {
                 }
 
                 if (localErrors.hasErrors()) {
-                    def objectErrors = object.errors;
+                    def objectErrors = object.errors
                     localErrors.allErrors.each { localError ->
                         addLocalError(localError, objectErrors)
                     }

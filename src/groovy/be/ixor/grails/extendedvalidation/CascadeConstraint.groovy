@@ -7,6 +7,7 @@ import org.springframework.validation.Errors
 public class CascadeConstraint extends AbstractConstraint {
     static final String NAME = "cascade"
     static final String DEFAULT_MESSAGE_CODE = "default.cascade.message"
+    static final String MESSAGE_CODE = NAME + ConstrainedProperty.INVALID_SUFFIX
 
     boolean cascade
 
