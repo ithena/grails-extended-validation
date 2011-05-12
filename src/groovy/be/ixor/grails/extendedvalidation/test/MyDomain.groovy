@@ -9,20 +9,30 @@ class MyDomain {
     int ranged
     Map<String, SubDomain> subDomain
 
+    SubDomain myOtherSubDomain
+
     def collection = []
 
     static constraints = {
+        // Constraint group
         group1 {
             sized(maxSize: 3)
             minInt(min: 3)
+
+            // cascade:true causes the validation to be cascaded to all the SubDomain
+            // entities in the sub domain map
             subDomain(nullable: false, cascade: true)
+            
             sortedCollection(validator: { myDomain, errors ->
                 if (myDomain?.collection != myDomain?.collection?.clone()?.sort()) {
                     errors.reject('unsorted')
                 }
             })
         }
+
         ranged(range: 1..3)
+
+        // Instance constraint
         uniqueInCollection(validator: {MyDomain myDomain ->
             def collection = myDomain?.collection
             for (element in collection) {
@@ -31,5 +41,8 @@ class MyDomain {
                 }
             }
         })
+
+        // Cascade validation, but exclude the validation on 'subRanged' and 'subMinInt'
+        myOtherSubDomain(cascade: [excludes: ['subRanged','subMinInt']])
     }
 }

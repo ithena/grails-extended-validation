@@ -10,18 +10,52 @@ public class CascadeConstraint extends AbstractConstraint {
     static final String MESSAGE_CODE = NAME + ConstrainedProperty.INVALID_SUFFIX
 
     boolean cascade
+    List<String> excludes = []
 
     @Override
     void setParameter(Object constraintParameter) {
-        if (!(constraintParameter instanceof Boolean)) {
-            throw new IllegalArgumentException("Parameter for constraint [" +
-                    NAME + "] of property [" +
-                    constraintPropertyName + "] of class [" + constraintOwningClass +
-                    "] must be a boolean value");
+        if(constraintParameter == null){
+            throw new IllegalArgumentException(
+                    "Parameter for constraint [${NAME}] of property [${constraintPropertyName}] of class [${constraintOwningClass}] must not be NULL.")
         }
 
-        cascade = ((Boolean) constraintParameter).booleanValue();
+        initConstraintParameter(constraintParameter)
+
         super.setParameter(constraintParameter);
+    }
+
+    void initConstraintParameter(Boolean constraintParameter){
+        cascade = constraintParameter
+    }
+
+    void initConstraintParameter(Map constraintParameter){
+        if(!constraintParameter){
+            throw new IllegalArgumentException(
+                    "Parameter for constraint [${NAME}] of property [${constraintPropertyName}] of class [${constraintOwningClass}] ")
+        }
+
+        setExcludes(constraintParameter.excludes ?: [])
+        cascade = true
+    }
+
+    void initConstraintParameter(constraintParameter){
+        throw new IllegalArgumentException(
+                    "Parameter for constraint [${NAME}] of property [${constraintPropertyName}] of class [${constraintOwningClass}] " +
+                    "should be of type boolean or type Map but is ${constraintParameter?.class?.name}.")
+    }
+
+    void setExcludes(String exclude){
+        setExcludes([exclude])
+    }
+
+    void setExcludes(List excludes){
+        this.excludes = excludes
+    }
+
+    void setExcludes(excludes){
+        throw new IllegalArgumentException(
+                    "Excludes definition for constraint [${NAME}] of property [${constraintPropertyName}] of class [${constraintOwningClass}] " +
+                    "should be a String or a List of Strings but is ${excludes?.class?.name}.")
     }
 
     @Override
@@ -31,7 +65,7 @@ public class CascadeConstraint extends AbstractConstraint {
         }
         def nestedValues = (propertyValue instanceof Map) ? propertyValue.values() : propertyValue
         def propertiesToCheck = processConstraintsToCheck(errors.propertiesToCheck)
-        def excludedChecks = processConstraintsToCheck(errors.excludedChecks)
+        def excludedChecks = processConstraintsToCheck(errors.excludedChecks) + excludes
         boolean valid = true
         for (value in nestedValues) {
             if (value != null) {

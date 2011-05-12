@@ -5,6 +5,10 @@ import org.springframework.validation.BindingResult
 import org.springframework.validation.Errors
 import org.springframework.validation.ObjectError
 
+/**
+ * Constraint that does not constrain a specific instance field or member
+ * but constraints the 'entire' entity.
+ */
 class InstanceConstraint {
 
     protected String constraintName;

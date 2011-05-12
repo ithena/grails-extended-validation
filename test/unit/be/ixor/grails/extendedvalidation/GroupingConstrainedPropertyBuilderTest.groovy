@@ -14,11 +14,12 @@ class GroupingConstrainedPropertyBuilderTest extends GroovyTestCase {
     void testPropertyConstraintsCreated() {
         def propertyConstraints = myDomain.constraints.findAll { it.value?.hasProperty('propertyName') }
 
-        assert 4 == propertyConstraints.size()
+        assert 5 == propertyConstraints.size()
         assert propertyConstraints['sized']
         assert propertyConstraints['minInt']
         assert propertyConstraints['ranged']
         assert propertyConstraints['subDomain']
+        assert propertyConstraints['myOtherSubDomain']
     }
 
     void testGroupConstraintsCreated() {

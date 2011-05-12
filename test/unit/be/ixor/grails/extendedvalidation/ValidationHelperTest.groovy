@@ -153,4 +153,20 @@ class ValidationHelperTest extends GroovyTestCase {
 
         assert myDomain.validate(excludes: ['sortedCollection'])
     }
+
+    void testValidateWithCascadeExcludes(){
+        MyDomain myDomain = new MyDomain(sized: '123', minInt: 4, ranged: 2)
+        myDomain.subDomain = [:]
+        assert myDomain.validate()
+
+        // myOtherDomain subMinInt and subRanged values will not validate
+        SubDomain myOtherSubDomain = new SubDomain(subSized: '123', subMinInt: 2, subRanged: 4)
+        myDomain.myOtherSubDomain = myOtherSubDomain
+
+        // myDomain should validate since it excludes subMinInt and subRanged in the myOtherSubDomain cascade
+        assert myDomain.validate()
+
+        // myOtherDomain validation fails since it does not exclude subMinInt and subRanged
+        assert !myOtherSubDomain.validate()
+    }
 }
